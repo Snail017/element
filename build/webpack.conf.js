@@ -11,13 +11,13 @@ module.exports = {
     app: ['./src/index.js']
   },
   output: {
-    path: path.resolve(process.cwd(), './lib'),
+    path: path.resolve(process.cwd(), './lib'),     //指示输出的目录，对应一个绝对路径
     publicPath: '/dist/',
     filename: 'index.js',
     chunkFilename: '[id].js',
     libraryTarget: 'umd',
     libraryExport: 'default',
-    library: 'ELEMENT',
+    library: 'ELEMENT',             //把导出的结果赋值给ELEMENT
     umdNamedDefine: true,
     globalObject: 'typeof self !== \'undefined\' ? self : this'
   },
@@ -29,6 +29,7 @@ module.exports = {
     vue: config.vue
   },
   optimization: {
+    // 插件压缩 bundle
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -39,12 +40,16 @@ module.exports = {
       })
     ]
   },
+  //配置如何展示性能提示。例如，如果一个资源超过 250kb，webpack 会对此输出一个警告来通知你。
   performance: {
-    hints: false
+    hints: false   //给定一个创建后超过 250kb 的资源
   },
+  //stats 选项让你更精确地控制 bundle 信息该怎么显示
   stats: {
+    //告知 stats 是否添加关于子模块的信息
     children: false
   },
+  //如何处理项目中的不同类型的模块
   module: {
     rules: [
       {
